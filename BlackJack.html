@@ -1,0 +1,108 @@
+﻿<meta charset="utf-8">
+<script>
+	
+	function getRandom(min, max) {
+		return Math.floor(Math.random()*(max - min + 1))+min;
+	}
+
+	function getCard() {
+		var cards = ["6", "7", "8", "9", "10", "J", "Q", "K", "A"];
+		return cards[getRandom(0, cards.length - 1)];
+	}
+
+	function getSum(arr) {
+		var sum=parseInt(sum=0);
+		for (var i=0; i<arr.length; i++) {
+			if (isNaN(arr[i])){
+				if (arr[i]=="A"){
+					sum=sum+11; 
+					if (sum>21){
+						sum=sum-10;
+					}
+				} else{
+				sum=sum+10;
+			}
+			} else { 
+				sum=sum+parseInt(arr[i]);
+			}
+	}
+		return sum;
+	}
+
+function getStatus(){
+	return "Дилер: " + dealer.join(" ") + " Игрок: " + player.join(" ") + ".";
+}
+
+	var dealer = [getCard()];
+	var player = [getCard(), getCard()];
+
+	do
+	{
+	if (getSum(player)<=21){
+		if (getSum(player)==21){
+			if (getSum(player)==21&&player.length==2){
+				alert(getStatus());
+				alert("Black Jack!");
+				break;
+		}
+		break;
+	}
+		var answer = prompt(getStatus() + "Хотите ещё карту? 1 - Да, иначе - нет");
+		if (answer == "1") {
+			player.push(getCard());
+	}
+	} else {
+		alert(player + " Игрок перебор!");
+		break;
+	}
+	} while (answer == "1");
+	 do{
+	 	if (getSum(player)>21){
+	 		break;
+	 	}
+	 	dealer.push(getCard());
+		if (getSum(dealer)==21){
+			if (getSum(dealer)==21&&dealer.length==2){
+				alert(getStatus());
+				break;
+		}
+		alert(getStatus());
+				break;
+			}
+			if (getSum(dealer)>21){
+				alert(dealer + " Дилер: Перебор.");
+				break;
+			}
+	 } while (getSum(dealer)<17);
+	alert("Очков у дилера: " + getSum(dealer));
+	alert("Очков у игрока: " + getSum(player));
+	if (getSum(player)==getSum(dealer)){
+		if (getSum(player)==21&&player.length==2){
+			alert(getStatus());
+			alert("Игрок победил");
+		} else if (getSum(dealer)==21&&dealer.length==2){
+			alert(getStatus());
+			alert("Победил дилер");
+		} else {
+			alert(getStatus());
+			alert("Игрок победил");
+		}
+	}
+	if (getSum(player)>getSum(dealer)){
+		if (getSum(player)>21){
+			alert(getStatus());
+			alert("Дилер победил")
+		} else{
+		alert(getStatus());
+		alert("Игрок победил");
+	}
+	} else if(getSum(player)<getSum(dealer)){
+		if (getSum(dealer)>21){
+			alert(getStatus());
+			alert("Игрок победил")
+		} else {
+		alert("Победил дилер");
+	}
+}
+
+</script>
